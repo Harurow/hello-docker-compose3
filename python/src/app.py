@@ -1,7 +1,6 @@
 import time
 import requests
 import os
-import sys
 import random
 
 print("python > hello, docker.")
