@@ -3,9 +3,6 @@ services:
   app:
     container_name: node-app
     build: .
-    tty: true
-    volumes:
-      - "./app/:/app"
     ports:
       - "3000:3000"
       - "4000:4000"
