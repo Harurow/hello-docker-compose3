@@ -3,7 +3,7 @@ import requests
 import os
 import random
 
-print("python > hello, docker.")
+print("python > Hello, docker.")
 
 DAPR_HTTP_PORT = os.getenv("DAPR_HTTP_PORT", 3500)
 BASE_URL = "http://localhost:{0}/v1.0/invoke/{{}}//method/order" \
