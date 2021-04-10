@@ -3,9 +3,6 @@ services:
   app:
     container_name: python-app
     build: .
-    tty: true
-    volumes:
-      - "./src/:/app"
     networks:
       - hello-docker
   dapr:
