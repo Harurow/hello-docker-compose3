@@ -35,7 +35,7 @@ def get_order(app_id):
 
     def _func():
         try:
-            resp = requests.get(URL, json={})
+            resp = requests.get(URL)
             if resp.ok:
                 print("OK: GET  {0} / order : {1}".format(app_id, resp.text))
             else:
