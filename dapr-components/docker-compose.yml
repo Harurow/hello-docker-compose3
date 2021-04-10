@@ -1,0 +1,26 @@
+version: '3'
+services:
+  ############################
+  # Dapr placement service
+  ############################
+  placement:
+    image: "daprio/dapr"
+    container_name: placement
+    command: ["./placement", "-port", "50000"]
+    ports:
+      - "50000:50000"
+    networks:
+      - hello-docker
+  ############################
+  # Redis state store
+  ############################
+  redis:
+    image: "redis:alpine"
+    container_name: radis
+    ports:
+      - "50001:6379"
+    networks:
+      - hello-docker
+networks:
+  hello-docker:
+    external: true
