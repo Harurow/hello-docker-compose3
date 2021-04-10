@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    container_name: deno-app
+    build: .
+    ports:
+      - "3001:3001"
+      - "4001:4001"
+    networks:
+      - hello-docker
+  dapr:
+    container_name: deno-dapr
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+      "-app-id", "deno-app",
+      "-app-port", "3001",
+      "-placement-host-address", "placement:50000",
+      "-dapr-grpc-port", "4001",
+      "-components-path", "/components"]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - app
+    network_mode: "service:app"
+networks:
+  hello-docker:
+    external: true
