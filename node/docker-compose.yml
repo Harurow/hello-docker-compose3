@@ -1,0 +1,30 @@
+version: '3'
+services:
+  app:
+    container_name: node-app
+    build: .
+    tty: true
+    volumes:
+      - "./app/:/app"
+    ports:
+      - "3000:3000"
+      - "4000:4000"
+    networks:
+      - hello-docker
+  dapr:
+    container_name: node-dapr
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+      "-app-id", "node-app",
+      "-app-port", "3000",
+      "-placement-host-address", "placement:50000",
+      "-dapr-grpc-port", "4000",
+      "-components-path", "/components"]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - app
+    network_mode: "service:app"
+networks:
+  hello-docker:
+    external: true
