@@ -1,19 +1,19 @@
 .PHONY: build
 build:
 	pushd dapr-components && make build && popd
-	pushd python-app      && make build && popd
+	pushd python          && make build && popd
 
 .PHONY: up
 up:
 	pushd dapr-components && make up && popd
-	pushd python-app      && make up && popd
+	pushd python          && make up && popd
 
 .PHONY: down
 down:
 	pushd dapr-components && make down && popd
-	pushd python-app      && make down && popd
+	pushd python          && make down && popd
 
 .PHONY: clean
 clean:
 	pushd dapr-components && make clean && popd
-	pushd python-app      && make clean && popd
+	pushd python          && make clean && popd
