@@ -4,6 +4,7 @@ build:
 	pushd python          && make build && popd
 	pushd node            && make build && popd
 	pushd deno            && make build && popd
+	pushd golang          && make build && popd
 
 .PHONY: up
 up:
@@ -11,6 +12,7 @@ up:
 	pushd python          && make up && popd
 	pushd node            && make up && popd
 	pushd deno            && make up && popd
+	pushd golang          && make up && popd
 
 .PHONY: down
 down:
@@ -18,6 +20,7 @@ down:
 	pushd python          && make down && popd
 	pushd node            && make down && popd
 	pushd deno            && make down && popd
+	pushd golang          && make down && popd
 
 .PHONY: clean
 clean:
@@ -25,3 +28,4 @@ clean:
 	pushd python          && make clean && popd
 	pushd node            && make clean && popd
 	pushd deno            && make clean && popd
+	pushd golang          && make clean && popd

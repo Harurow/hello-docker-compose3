@@ -1,0 +1,27 @@
+version: '3'
+services:
+  app:
+    container_name: golang-app
+    build: .
+    ports:
+      - "3002:3002"
+      - "4002:4002"
+    networks:
+      - hello-docker
+  dapr:
+    container_name: golang-dapr
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+      "-app-id", "golang-app",
+      "-app-port", "3002",
+      "-placement-host-address", "placement:50000",
+      "-dapr-grpc-port", "4002",
+      "-components-path", "/components"]
+    volumes:
+      - "./components/:/components"
+    depends_on:
+      - app
+    network_mode: "service:app"
+networks:
+  hello-docker:
+    external: true
