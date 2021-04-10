@@ -1,6 +1,6 @@
 version: '3'
 services:
-  python-app:
+  app:
     container_name: app
     build: .
     tty: true
@@ -8,6 +8,16 @@ services:
       - "./src/:/app"
     networks:
       - hello-docker
+  dapr:
+    container_name: dapr
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+      "-app-id", "app",
+      "-placement-host-address", "placement:50000",
+      "-components-path", "/components"]
+    depends_on:
+      - app
+    network_mode: "service:app"
 networks:
   hello-docker:
     external: true
