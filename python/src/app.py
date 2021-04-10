@@ -19,8 +19,11 @@ def post_order(app_id, num_of_start):
         nonlocal n
         try:
             message = {"data": {"orderId": n}}
-            requests.post(URL, json=message)
-            print("OK: POST {0} / order".format(app_id))
+            resp = requests.post(URL, json=message)
+            if resp.ok:
+                print("OK: POST {0} / order : {1}".format(app_id, resp.text))
+            else:
+                print("NG: POST {0} / order : {1}".format(app_id, resp.text))
         except Exception as e:
             print("NG: POST {0} / order : {1}".format(app_id, e))
         n += 1
@@ -34,7 +37,10 @@ def get_order(app_id):
     def _func():
         try:
             resp = requests.get(URL, json={})
-            print("OK: GET  {0} / order > {1}".format(app_id, resp.text))
+            if resp.ok:
+                print("OK: GET  {0} / order : {1}".format(app_id, resp.text))
+            else:
+                print("NG: GET  {0} / order : {1}".format(app_id, resp.text))
         except Exception as e:
             print("NG: GET  {0} / order : {1}".format(app_id, e))
 
