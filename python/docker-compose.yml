@@ -1,7 +1,7 @@
 version: '3'
 services:
   app:
-    container_name: app
+    container_name: python-app
     build: .
     tty: true
     volumes:
@@ -9,10 +9,10 @@ services:
     networks:
       - hello-docker
   dapr:
-    container_name: dapr
+    container_name: python-dapr
     image: "daprio/daprd:edge"
     command: ["./daprd",
-      "-app-id", "app",
+      "-app-id", "python-app",
       "-placement-host-address", "placement:50000",
       "-components-path", "/components"]
     depends_on:
