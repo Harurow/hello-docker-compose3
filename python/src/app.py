@@ -20,11 +20,11 @@ def post_order(app_id, num_of_start):
             message = {"data": {"orderId": n}}
             resp = requests.post(URL, json=message)
             if resp.ok:
-                print("OK: POST {0} / order : {1}".format(app_id, resp.text))
+                print("OK: POST {0} / order : {1} > {2}".format(app_id, n, resp.text))
             else:
-                print("NG: POST {0} / order : {1}".format(app_id, resp.text))
+                print("NG: POST {0} / order : {1} > {2}".format(app_id, n, resp.text))
         except Exception as e:
-            print("NG: POST {0} / order : {1}".format(app_id, e))
+            print("NG: POST {0} / order : {1} > {2}".format(app_id, n, e))
         n += 1
 
     return _func
