@@ -3,9 +3,11 @@ services:
   app:
     container_name: golang-app
     build: .
+    image: golang-app:stable
+    environment:
+      - HTTP_PORT=3002
     ports:
       - "3002:3002"
-      - "4002:4002"
     networks:
       - hello-docker
   dapr:
