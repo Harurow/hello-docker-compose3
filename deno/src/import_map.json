@@ -1,0 +1,8 @@
+{
+    "imports": {
+        "node/": "https://deno.land/std/node/",
+        "deno-fen/": "https://github.com/fen-land/deno-fen/raw/master/",
+        "/": "./",
+        "./": "./"
+    }
+}
