@@ -3,6 +3,7 @@ services:
   app:
     container_name: python-app
     build: .
+    image: python-app:stable
     networks:
       - hello-docker
   dapr:

@@ -1,6 +1,7 @@
 version: '3'
 services:
   app:
+    image: python-app:dev
     command: "/bin/sh"
     tty: true
     volumes:
