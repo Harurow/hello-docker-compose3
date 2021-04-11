@@ -3,9 +3,11 @@ services:
   app:
     container_name: deno-app
     build: .
+    image: deno-app:stable
+    environment:
+      - HTTP_PORT=3001
     ports:
       - "3001:3001"
-      - "4001:4001"
     networks:
       - hello-docker
   dapr:
