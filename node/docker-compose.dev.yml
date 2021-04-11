@@ -1,7 +1,7 @@
 version: '3'
 services:
-  app:
-    image: node-app:dev
+  server:
+    image: node-server:dev
     command: "/bin/sh"
     tty: true
     volumes:

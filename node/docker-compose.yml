@@ -1,9 +1,9 @@
 version: '3'
 services:
-  app:
-    container_name: node-app
+  server:
+    container_name: node-server
     build: .
-    image: node-app:stable
+    image: node-server:stable
     environment:
       - HTTP_PORT=3000
     ports:
@@ -11,10 +11,10 @@ services:
     networks:
       - hello-docker
   dapr:
-    container_name: node-dapr
+    container_name: node-server-dapr
     image: "daprio/daprd:edge"
     command: ["./daprd",
-      "-app-id", "node-app",
+      "-app-id", "node-server",
       "-app-port", "3000",
       "-placement-host-address", "placement:50000",
       "-dapr-grpc-port", "4000",
@@ -22,8 +22,8 @@ services:
     volumes:
       - "./components/:/components"
     depends_on:
-      - app
-    network_mode: "service:app"
+      - server
+    network_mode: "service:server"
 networks:
   hello-docker:
     external: true
