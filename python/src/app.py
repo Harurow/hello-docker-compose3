@@ -1,73 +1,22 @@
-import time
-import requests
-import os
-import random
-
-print("python > Hello, docker.")
-
-DAPR_HTTP_PORT = os.getenv("DAPR_HTTP_PORT", 3500)
-BASE_URL = "http://localhost:{0}/v1.0/invoke/{{}}//method/order" \
-    .format(DAPR_HTTP_PORT)
+# from utils.port import getPort
+# from http.server import HTTPServer
+# import handlers
 
 
-def post_order(app_id, num_of_start):
-    n = num_of_start
-    URL = BASE_URL.format(app_id)
-
-    def _func():
-        nonlocal n
-        try:
-            message = {"data": {"orderId": n}}
-            resp = requests.post(URL, json=message)
-            if resp.ok:
-                print("OK: POST {0} / order : {1} > {2}".format(app_id, n, resp.text))
-            else:
-                print("NG: POST {0} / order : {1} > {2}".format(app_id, n, resp.text))
-        except Exception as e:
-            print("NG: POST {0} / order : {1} > {2}".format(app_id, n, e))
-        n += 1
-
-    return _func
+# def main():
+#     port = getPort()
+#     server = HTTPServer(('0.0.0.0', port), handlers.Handler)
+#     print("python > Hello, docker.")
+#     server.serve_forever()
 
 
-def get_order(app_id):
-    URL = BASE_URL.format(app_id)
+# if __name__ == '__main__':
+#     main()
 
-    def _func():
-        try:
-            resp = requests.get(URL)
-            if resp.ok:
-                print("OK: GET  {0} / order : {1}".format(app_id, resp.text))
-            else:
-                print("NG: GET  {0} / order : {1}".format(app_id, resp.text))
-        except Exception as e:
-            print("NG: GET  {0} / order : {1}".format(app_id, e))
+from utils.port import getPort
+from bottle import run
+import handlers.oders
 
-    return _func
-
-
-def main():
-    node_post_order = post_order("node-app", random.randint(0, 10000))
-    deno_post_order = post_order("deno-app", random.randint(0, 10000))
-    golang_post_order = post_order("golang-app", random.randint(0, 10000))
-
-    node_get_order = get_order("node-app")
-    deno_get_order = get_order("deno-app")
-    golang_get_order = get_order("golang-app")
-
-    while True:
-        node_post_order()
-        deno_post_order()
-        golang_post_order()
-
-        time.sleep(1.0)
-
-        node_get_order()
-        deno_get_order()
-        golang_get_order()
-
-        time.sleep(1.0)
-
-
-if __name__ == '__main__':
-    main()
+port = getPort()
+print("python > Hello, docker. {0}".format(port))
+run(host='0.0.0.0', port=port)

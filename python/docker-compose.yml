@@ -1,21 +1,29 @@
 version: '3'
 services:
-  app:
-    container_name: python-app
+  server:
+    container_name: python-server
     build: .
-    image: python-app:stable
+    image: python-server:stable
+    environment:
+      - HTTP_PORT=3003
+    ports:
+      - "3003:3003"
     networks:
       - hello-docker
   dapr:
-    container_name: python-dapr
+    container_name: python-server-dapr
     image: "daprio/daprd:edge"
     command: ["./daprd",
-      "-app-id", "python-app",
+      "-app-id", "python-server",
+      "-app-port", "3003",
       "-placement-host-address", "placement:50000",
+      "-dapr-grpc-port", "4003",
       "-components-path", "/components"]
+    volumes:
+      - "./components/:/components"
     depends_on:
-      - app
-    network_mode: "service:app"
+      - server
+    network_mode: "service:server"
 networks:
   hello-docker:
     external: true
