@@ -1,0 +1,21 @@
+version: '3'
+services:
+  client:
+    container_name: python-client
+    build: .
+    image: python-client:stable
+    networks:
+      - hello-docker
+  dapr:
+    container_name: python-client-dapr
+    image: "daprio/daprd:edge"
+    command: ["./daprd",
+      "-app-id", "python-client",
+      "-placement-host-address", "placement:50000",
+      "-components-path", "/components"]
+    depends_on:
+      - client
+    network_mode: "service:client"
+networks:
+  hello-docker:
+    external: true

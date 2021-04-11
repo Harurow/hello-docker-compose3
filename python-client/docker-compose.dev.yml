@@ -1,0 +1,8 @@
+version: '3'
+services:
+  client:
+    image: python-client:dev
+    command: "/bin/sh"
+    tty: true
+    volumes:
+      - "./src/:/app"
