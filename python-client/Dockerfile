@@ -1,4 +1,4 @@
-FROM python:alpine3.13
+FROM python:alpine
 WORKDIR /app
 COPY ./src .
 RUN pip install -r deps.txt
